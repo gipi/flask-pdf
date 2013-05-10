@@ -1,16 +1,17 @@
-from peewee import CharField, DateTimeField
+from peewee import CharField, DateTimeField, Field
 from . import db
 
 import datetime
 
-class PagesField(CharField):
+class PagesField(Field):
     "Field that will contains the pages to be printed"
+    db_field = 'string'
     # FIXME: enlarge field size to allow unlimited pages
-    def db_values(self, value):
-        return ','.join(value)
+    def db_value(self, value):
+        return ','.join([str(x) for x in value])
 
     def python_value(self, value):
-        return value.split(',')
+        return [int(x) for x in value.split(',')]
 
 class PDF(db.Model):
     # here will go the User id
