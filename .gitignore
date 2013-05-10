@@ -1,0 +1,6 @@
+.installed.cfg
+/bin
+/develop-eggs
+/eggs
+/parts
+/src/flask_pdf.egg-info

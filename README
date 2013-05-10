@@ -1,0 +1,17 @@
+Simple applicaton that handles PDF.
+
+GETTING STARTED
+---------------
+
+ $ python bootstrap.py
+ $ bin/buildout
+ $ bin/flask-ctl debug fg
+
+Go to http://localhost:5000/ and load a PDF file.
+
+
+The code of the client side PDF viewer came from the pdf.js project
+from the mozilla foundation that you can find at the repository on
+github:
+
+    https://github.com/mozilla/pdf.js
