@@ -63,27 +63,43 @@ def _init_db(debug=False, dry_run=False):
     # Create the tables
     init_db()
 
+def createsuperuser(debug=False, dry_run=False):
+    from flask_pdf.models import User
+    user = User(username='admin', email='admin@example.com')
+    user.set_password('password')
+
+    user.save()
+
 
 def _serve(action, debug=False, dry_run=False):
     """Build paster command from 'action' and 'debug' flag."""
     if action == 'syncdb':
         # First, create the tables
         return _init_db(debug=debug, dry_run=dry_run)
+
+    if action == 'createsuperuser':
+        return createsuperuser(debug=debug, dry_run=dry_run)
+
     if debug:
         config = DEBUG_INI
     else:
         config = DEPLOY_INI
+
     argv = ['bin/paster', 'serve', config]
+
     if action in ('start', 'restart'):
         argv += [action, '--daemon']
     elif action in ('', 'fg', 'foreground'):
         argv += ['--reload']
     else:
         argv += [action]
+
     # Print the 'paster' command
     print ' '.join(argv)
+
     if dry_run:
         return
+
     # Configure logging and lock file
     if action in ('start', 'stop', 'restart', 'status'):
         argv += [

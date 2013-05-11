@@ -1,4 +1,6 @@
-from peewee import CharField, DateTimeField, Field
+from peewee import CharField, DateTimeField, Field, BooleanField
+from flask_peewee.auth import BaseUser
+
 from . import db
 
 import datetime
@@ -20,5 +22,17 @@ class PDF(db.Model):
     filepath = CharField()
     pages = PagesField()
 
+class User(db.Model, BaseUser):
+    username = CharField()
+    password = CharField()
+    email = CharField()
+    join_date = DateTimeField(default=datetime.datetime.now)
+    active = BooleanField(default=True)
+    admin = BooleanField(default=False)
+
+    def __unicode__(self):
+        return self.username
+
 def init_db():
-    PDF.create_table()
+    PDF.create_table(fail_silently=True)
+    User.create_table(fail_silently=True)
