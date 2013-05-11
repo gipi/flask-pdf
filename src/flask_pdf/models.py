@@ -22,6 +22,9 @@ class PDF(db.Model):
     filepath = CharField()
     pages = PagesField()
 
+    def __unicode__(self):
+        return self.title
+
 class User(db.Model, BaseUser):
     username = CharField()
     password = CharField()
