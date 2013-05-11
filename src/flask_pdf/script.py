@@ -26,8 +26,13 @@ del _buildout_path
 # bin/paster serve parts/etc/deploy.ini
 def make_app(global_conf={}, config=DEPLOY_CFG, debug=False):
     from flask_pdf import app
+    from flask_pdf.auth import auth
+    from flask_pdf.admin import admin
     app.config.from_pyfile(abspath(config))
     app.debug = debug
+
+    admin.setup()
+
     return app
 
 
