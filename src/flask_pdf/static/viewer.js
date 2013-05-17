@@ -3332,6 +3332,9 @@ document.addEventListener('DOMContentLoaded', function webViewerLoad(evt) {
       PDFView.rotatePages(90);
     });
 
+  // we want the sidebar to be open when the content is loaded
+  document.getElementById('sidebarToggle').click();
+
 //#if (FIREFOX || MOZCENTRAL)
 //PDFView.setTitleUsingUrl(file);
 //PDFView.initPassiveLoading();
